@@ -6,36 +6,49 @@ using System.Threading.Tasks;
 
 namespace HealthSystem
 {
-    internal class Player
+    internal class Player : GameCharacter
     {
-        private string name;
-        private int health;
-        private int lives;
+        public int lives;
+        public int shield;
+        private int maxShield;
 
-
-        public Player(string name = "Bobert")
+        public Player(string name = "Bob", int hp = 100, int lives = 3, int shield = 50) : base(name, hp)
         {
-            this.name = name;
-            health = 100;
-            lives = 3;
+            this.lives = lives;
+            this.shield = shield;
+            maxShield = shield;
         }
 
-        public void TakeDamage(int hp)
+        public new void TakeDamage(int hp)
         {
-            health -= hp;
-            if (health <= 0) health = 0;
+            int tempShield = shield;
+
+            tempShield -= hp;
+            if (tempShield < 0) tempShield = 0;
+            hp -= shield;
+            if (hp < 1) hp = 0;
+            shield = tempShield;
+
+            base.TakeDamage(hp);
+            
+            if (health == 0)
+            {
+                lives--;
+                Heal(maxHealth);
+                RegenerateShield(maxShield);
+            }
         }
 
-        public void Heal(int hp)
+        public void RegenerateShield(int sp)
         {
-            health += hp;
-            if (health > 100) health = 100;
+            shield += sp;
+            if (shield > maxShield) shield = maxShield;
         }
 
-        public void ShowHUD()
+        public new void ShowHUD()
         {
-            Console.WriteLine("Player: " + name);
-            Console.WriteLine(name + "'s Health = " + health);
+            base.ShowHUD();
+            Console.WriteLine(name + "'s Shield = " + shield);
             Console.WriteLine(name + "'s lives = " + lives);
         }
     }

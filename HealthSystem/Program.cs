@@ -11,7 +11,9 @@ namespace HealthSystem
         static void Main(string[] args)
         {
             Player player = new Player("Phil");
-            Console.WriteLine("Health System\n");
+            Enemy enemy = new Enemy("Skeleton", 50);
+
+            Console.WriteLine("Health System\n\nPlayer:\n");
             player.ShowHUD();
             Console.ReadKey(true);
             Console.WriteLine("");
@@ -19,8 +21,33 @@ namespace HealthSystem
             player.ShowHUD();
             Console.ReadKey(true);
             Console.WriteLine("");
-            player.Heal(4);
+            player.TakeDamage(57);
             player.ShowHUD();
+            Console.ReadKey(true);
+            Console.WriteLine("");
+            player.Heal(14);
+            player.ShowHUD();
+            Console.ReadKey(true);
+            Console.WriteLine("");
+            player.RegenerateShield(23);
+            player.ShowHUD();
+            Console.ReadKey(true);
+            Console.WriteLine("");
+            player.TakeDamage(127);
+            player.ShowHUD();
+            Console.ReadKey(true);
+            Console.WriteLine("\n\n");
+
+            Console.WriteLine("Enemy:\n");
+            enemy.ShowHUD();
+            Console.ReadKey(true);
+            Console.WriteLine("");
+            enemy.TakeDamage(23);
+            enemy.ShowHUD();
+            Console.ReadKey(true);
+            Console.WriteLine("");
+            enemy.Heal(48);
+            enemy.ShowHUD();
             Console.ReadKey(true);
         }
     }
